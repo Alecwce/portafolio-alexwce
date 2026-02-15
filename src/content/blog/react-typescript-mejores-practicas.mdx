@@ -1,0 +1,201 @@
+---
+title: 'React + TypeScript: Mejores Prácticas 2025'
+description: 'Guía completa sobre las mejores prácticas para trabajar con React y TypeScript en proyectos profesionales.'
+date: '2025-12-24'
+author: 'Alex'
+tags: ['react', 'typescript', 'best practices', 'professional']
+coverImage: '/images/blog/react-typescript.jpg'
+slug: 'react-typescript-mejores-practicas'
+---
+
+# React + TypeScript: Mejores Prácticas 2025
+
+TypeScript se ha convertido en el estándar para proyectos React profesionales. En este post, exploraré las mejores prácticas que he aprendido trabajando en proyectos de producción.
+
+## 1. Tipado de Props
+
+Siempre usa interfaces para tus props. Son más extensibles y claras que los types:
+
+```typescript
+interface ButtonProps {
+  label: string;
+  onClick: () => void;
+  variant?: 'primary' | 'secondary';
+  disabled?: boolean;
+}
+
+export const Button: React.FC<ButtonProps> = ({
+  label,
+  onClick,
+  variant = 'primary',
+  disabled = false,
+}) => {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={`btn btn-${variant}`}
+    >
+      {label}
+    </button>
+  );
+};
+```
+
+## 2. Custom Hooks con Tipado Fuerte
+
+Los hooks personalizados deben tener tipos de retorno explícitos:
+
+```typescript
+interface UseApiResult<T> {
+  data: T | null
+  loading: boolean
+  error: Error | null
+  refetch: () => Promise<void>
+}
+
+export const useApi = <T>(url: string): UseApiResult<T> => {
+  const [data, setData] = useState<T | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<Error | null>(null)
+
+  const fetchData = async () => {
+    try {
+      setLoading(true)
+      const response = await fetch(url)
+      const result = await response.json()
+      setData(result)
+    } catch (err) {
+      setError(err as Error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [url])
+
+  return { data, loading, error, refetch: fetchData }
+}
+```
+
+## 3. Eventos con Tipos Correctos
+
+No uses `any` en event handlers:
+
+```typescript
+const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  console.log(e.target.value)
+}
+
+const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault()
+  // Logic here
+}
+
+const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  // Button click logic
+}
+```
+
+## 4. Componentes Genéricos
+
+Para componentes reutilizables, usa genéricos:
+
+```typescript
+interface ListProps<T> {
+  items: T[];
+  renderItem: (item: T) => React.ReactNode;
+  keyExtractor: (item: T) => string | number;
+}
+
+export const List = <T,>({ items, renderItem, keyExtractor }: ListProps<T>) => {
+  return (
+    <ul>
+      {items.map((item) => (
+        <li key={keyExtractor(item)}>
+          {renderItem(item)}
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+// Uso:
+<List
+  items={users}
+  renderItem={(user) => <span>{user.name}</span>}
+  keyExtractor={(user) => user.id}
+/>
+```
+
+## 5. Discriminated Unions para Estados Complejos
+
+Usa discriminated unions para manejar múltiples estados:
+
+```typescript
+type FetchState<T> =
+  | { status: 'idle' }
+  | { status: 'loading' }
+  | { status: 'success'; data: T }
+  | { status: 'error'; error: Error };
+
+const [state, setState] = useState<FetchState<User>>({ status: 'idle' });
+
+// TypeScript puede inferir el tipo correcto en cada case
+switch (state.status) {
+  case 'loading':
+    return <Spinner />;
+  case 'success':
+    return <UserProfile user={state.data} />;
+  case 'error':
+    return <ErrorMessage error={state.error} />;
+  default:
+    return null;
+}
+```
+
+## 6. Utility Types
+
+Aprovecha los utility types de TypeScript:
+
+```typescript
+interface User {
+  id: number
+  name: string
+  email: string
+  password: string
+}
+
+// Solo propiedades públicas
+type PublicUser = Omit<User, 'password'>
+
+// Para formularios (todos opcionales)
+type UserFormData = Partial<User>
+
+// Solo lectura
+type ReadonlyUser = Readonly<User>
+
+// Pick específico
+type UserCredentials = Pick<User, 'email' | 'password'>
+```
+
+## Conclusión
+
+TypeScript en React no es solo agregar tipos, es sobre crear código:
+
+- ✅ **Más seguro** - Errores en tiempo de compilación
+- ✅ **Más mantenible** - Documentación implícita
+- ✅ **Más escalable** - Refactorización confiable
+- ✅ **Mejor DX** - Autocompletado y IntelliSense
+
+Estas prácticas transformarán tu código en algo más profesional y robusto.
+
+## Recursos Adicionales
+
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
+- [React TypeScript Cheatsheet](https://react-typescript-cheatsheet.netlify.app/)
+- [Total TypeScript](https://www.totaltypescript.com/)
+
+¡Happy coding! 🚀

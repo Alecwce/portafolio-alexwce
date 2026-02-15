@@ -1,0 +1,95 @@
+---
+title: 'Bienvenido a mi Blog de Desarrollo'
+description: 'Primer post del blog donde exploro las últimas tecnologías web y comparto mis experiencias como desarrollador Front-end.'
+date: '2025-12-20'
+author: 'Alex'
+tags: ['react', 'typescript', 'web development']
+coverImage: '/images/blog/welcome-cover.jpg'
+slug: 'bienvenido-a-mi-blog'
+---
+
+# Bienvenido a mi Blog de Desarrollo
+
+¡Hola! Este es mi primer post en el blog. Aquí compartiré mis experiencias, aprendizajes y proyectos en el mundo del desarrollo web.
+
+## ¿Por qué crear un blog?
+
+Como desarrollador Front-end, siempre estoy aprendiendo nuevas tecnologías y enfrentando retos interesantes. Este blog será mi espacio para:
+
+- 📝 Documentar mi proceso de aprendizaje
+- 🚀 Compartir soluciones a problemas comunes
+- 💡 Explorar nuevas ideas y tecnologías
+- 🤝 Conectar con la comunidad de desarrolladores
+
+## Tecnologías que exploraremos
+
+En este blog, hablaré principalmente sobre:
+
+### Frontend
+
+- **React** y su ecosistema
+- **TypeScript** para código más robusto
+- **Next.js** para aplicaciones modernas
+- **Tailwind CSS** para diseño eficiente
+
+### Desarrollo Moderno
+
+- **Vite** como build tool
+- **MDX** para contenido dinámico
+- **Framer Motion** para animaciones fluidas
+
+## Mi enfoque
+
+Creo firmemente en:
+
+> La mejor manera de aprender es enseñando. Compartir conocimiento beneficia a todos.
+
+Por eso, cada post incluirá:
+
+- Ejemplos de código prácticos
+- Explicaciones claras y concisas
+- Recursos adicionales para profundizar
+
+## Código de ejemplo
+
+Aquí hay un ejemplo simple de un Hook personalizado en React:
+
+```typescript
+import { useState, useEffect } from 'react'
+
+export const useTheme = () => {
+  const [theme, setTheme] = useState<'light' | 'dark'>('light')
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark'
+    if (savedTheme) {
+      setTheme(savedTheme)
+    }
+  }, [])
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light'
+    setTheme(newTheme)
+    localStorage.setItem('theme', newTheme)
+  }
+
+  return { theme, toggleTheme }
+}
+```
+
+Este es el tipo de contenido que encontrarás aquí: **práctico, útil y fácil de seguir**.
+
+## ¿Qué viene después?
+
+En los próximos posts, exploraré:
+
+1. Patrones avanzados en React
+2. Optimización de rendimiento en aplicaciones web
+3. Mejores prácticas de TypeScript
+4. Diseño de sistemas y componentes reutilizables
+
+## Mantente conectado
+
+Espero que este blog sea útil para ti. Si tienes sugerencias de temas o preguntas, ¡no dudes en contactarme!
+
+Gracias por leer y ¡nos vemos en el próximo post! 🚀

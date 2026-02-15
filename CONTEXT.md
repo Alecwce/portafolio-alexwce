@@ -227,12 +227,39 @@ pnpm preview  # Preview build de producción
 
 ## 🎯 Próximas Mejoras Sugeridas
 
-- [ ] Implementar blog con MDX
+- [x] Implementar blog con MDX
 - [ ] Agregar analytics con Vercel/Plausible
 - [ ] Sistema de internacionalización (i18n)
 - [ ] PWA capabilities
 - [ ] Tests con Vitest + Testing Library
 - [ ] Storybook para component library
+
+---
+
+## 📝 Blog con MDX
+
+El portafolio incluye un sistema de blog completo implementado con MDX:
+
+**Stack del Blog:**
+
+- **MDX** - Markdown + JSX para contenido dinámico
+- **React Router DOM** - Navegación entre páginas
+- **Syntax Highlighting** - rehype-highlight para código
+- **Markdown Enhancements** - remark-gfm, rehype-slug, rehype-autolink-headings
+
+**Rutas:**
+
+- `/` - Home con portafolio completo
+- `/blog` - Listado de posts
+- `/blog/:slug` - Post individual
+
+**Componentes:**
+
+- `BlogList` - Grid de posts con animaciones
+- `BlogPost` - Vista individual con metadata
+- `MDXComponents` - Componentes personalizados para markdown
+
+**Ver:** [`BLOG_GUIDE.md`](file:///home/alexwce/Documentos/portafolio/alxwce-portfolio/BLOG_GUIDE.md) para guía completa de creación de posts.
 
 ---
 
