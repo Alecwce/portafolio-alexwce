@@ -35,7 +35,7 @@ Portafolio moderno y minimalista construido con las últimas tecnologías del ec
 
 ```bash
 # Clonar repositorio
-git clone https://github.com/Alecwce/portafolio-lx.git
+git clone https://github.com/Alecwce/portafolio-alexwce.git
 
 # Instalar dependencias
 pnpm install
